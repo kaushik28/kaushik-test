@@ -21,7 +21,7 @@ import com.cloudant.client.api.Database;
 import com.cloudant.client.api.model.Document;
 import com.cloudant.client.api.model.Params;
 import com.cloudant.client.org.lightcouch.Attachment;
-import com.google.gson.JsonObject;
+import org.json.JSONObject;
 
 @WebServlet("/User")
 public class UserServlet extends HttpServlet {
@@ -34,7 +34,7 @@ public class UserServlet extends HttpServlet {
 		StringBuilder jsonBuff = new StringBuilder();
 		String line = null;
 		try {
-		    BufferedReader reader = req.getReader();
+		    BufferedReader reader = request.getReader();
 		    while ((line = reader.readLine()) != null)
 		        jsonBuff.append(line);
 		} catch (Exception e) { /*error*/ }
@@ -43,11 +43,11 @@ public class UserServlet extends HttpServlet {
 		//write the response here by getting JSON from jasonBuff.toString()
 		
 		try {
-		    JSONObject jsonObject = JSONObject.fromObject(jb.toString());
+		    JSONObject jsonObject = JSONObject.fromObject(jsonBuff.toString());
 		
-		    out.print(jsonObject.get("name"));//writing output as you did
+		    System.out.print(jsonObject.get("name"));//writing output as you did
 		
-		} catch (ParseException e) {
+		} catch (Exception e) {
 		    throw new IOException("Error parsing JSON ");
 		}
 		
@@ -55,8 +55,8 @@ public class UserServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String user = request.getParameter("user");
-		String password = request.getParameter("password");
+		String id = request.getParameter("user");
+		String key = request.getParameter("password");
 
 		Document fav = CloudantClientMgr.getDB().find(Document.class, id, new Params().attachments());
 
