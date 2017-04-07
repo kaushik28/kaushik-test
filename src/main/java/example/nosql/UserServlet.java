@@ -51,13 +51,10 @@ public class UserServlet extends HttpServlet {
 		
 		    System.out.print(jsonObject.get("name"));//writing output as you did
 		    
-		    String username = jsonObject.get("name");
-		    String password = jsonObject.get("password")
+		    String username = jsonObject.get("username");
+		    String password = jsonObject.get("password");
 		    
-		    String userResponse = "{
-		    	\"status\": \"success\",
-		    	\"message\": \"Hi " + username + ", how are you?\",
-		    	}";
+		    String userResponse = "{\"status\": \"success\",\"message\": \"Hi " + username + ", how are you?\"}";
 		
 		} catch (Exception e) {
 		    throw new IOException("Error parsing JSON ");
