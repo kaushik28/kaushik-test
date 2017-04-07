@@ -21,7 +21,8 @@ import com.cloudant.client.api.Database;
 import com.cloudant.client.api.model.Document;
 import com.cloudant.client.api.model.Params;
 import com.cloudant.client.org.lightcouch.Attachment;
-import org.json.JSONObject;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 @WebServlet("/User")
 public class UserServlet extends HttpServlet {
@@ -43,7 +44,7 @@ public class UserServlet extends HttpServlet {
 		//write the response here by getting JSON from jasonBuff.toString()
 		
 		try {
-		    JSONObject jsonObject = JSONObject.fromObject(jsonBuff.toString());
+		    JsonObject jsonObject = parser.parse(jsonBuff.toString()).getAsJsonObject();
 		
 		    System.out.print(jsonObject.get("name"));//writing output as you did
 		
