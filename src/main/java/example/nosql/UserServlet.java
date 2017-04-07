@@ -43,31 +43,27 @@ public class UserServlet extends HttpServlet {
 		System.out.println("Request JSON string :" + jsonBuff.toString());
 		//write the response here by getting JSON from jasonBuff.toString()
 		
+		String username = "";
+		
 		try {
 			JsonParser parser = new JsonParser();
 		    JsonObject jsonObject = parser.parse(jsonBuff.toString()).getAsJsonObject();
 		
 		    System.out.print(jsonObject.get("name"));//writing output as you did
+		    
+		    String username = jsonObject.get("name");
+		    String password = jsonObject.get("password")
+		    
+		    String userResponse = "{
+		    	\"status\": \"success\",
+		    	\"message\": \"Hi " + username + ", how are you?\",
+		    	}";
 		
 		} catch (Exception e) {
 		    throw new IOException("Error parsing JSON ");
 		}
-		
-	}
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String id = request.getParameter("user");
-		String key = request.getParameter("password");
-
-		Document fav = CloudantClientMgr.getDB().find(Document.class, id, new Params().attachments());
-
-		OutputStream output = response.getOutputStream();
-		Attachment attachment = fav.getAttachments().get(URLEncoder.encode(key, "UTF-8"));
-		String attachmentData = attachment.getData();
-		response.setContentType(attachment.getContentType());
-		output.write(Base64.decodeBase64(attachmentData));
-
+		response.setContentType("application/json");
+		response.getWriter().print(userResponse);
 	}
 
 }
