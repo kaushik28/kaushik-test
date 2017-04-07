@@ -1,0 +1,11 @@
+applications:
+- path: target/JavaCloudantApp.war
+  memory: 512M
+  instances: 1
+  domain: minsky.mybluemix.net
+  name: kaushik-test
+  host: kaushik-test
+  disk_quota: 1024M
+  services:
+  - kaushik-test-cloudantNoSQLDB
+  - availability-monitoring-auto
