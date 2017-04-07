@@ -44,6 +44,7 @@ public class UserServlet extends HttpServlet {
 		//write the response here by getting JSON from jasonBuff.toString()
 		
 		String username = "";
+		String userResponse = "";
 		
 		try {
 			JsonParser parser = new JsonParser();
@@ -51,10 +52,10 @@ public class UserServlet extends HttpServlet {
 		
 		    System.out.print(jsonObject.get("name"));//writing output as you did
 		    
-		    String username = jsonObject.get("username");
-		    String password = jsonObject.get("password");
+		    username = jsonObject.get("username").isJsonNull() ? "" : jsonObject.get("username").getAsString();
+		    String password = jsonObject.get("password").isJsonNull() ? "" : jsonObject.get("password").getAsString();
 		    
-		    String userResponse = "{\"status\": \"success\",\"message\": \"Hi " + username + ", how are you?\"}";
+		    userResponse = "{\"status\": \"success\",\"message\": \"Hi " + username + ", how are you?\"}";
 		
 		} catch (Exception e) {
 		    throw new IOException("Error parsing JSON ");
