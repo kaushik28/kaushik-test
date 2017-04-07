@@ -44,6 +44,7 @@ public class UserServlet extends HttpServlet {
 		//write the response here by getting JSON from jasonBuff.toString()
 		
 		try {
+			JsonParser parser = new JsonParser();
 		    JsonObject jsonObject = parser.parse(jsonBuff.toString()).getAsJsonObject();
 		
 		    System.out.print(jsonObject.get("name"));//writing output as you did
